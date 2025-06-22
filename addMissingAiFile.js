@@ -1,49 +1,87 @@
+const fs = require('fs').promises;
 const path = require('path');
-const { promises: fs } = require('fs');
 
-(async () => {
-  const defaultDataDir = path.join(__dirname, 'data');
-  const baseDataDir = process.env.BASE_DATA_PATH || process.argv[2] || defaultDataDir;
+async function addMissingAiFiles(baseDir) {
+  const requiredFiles = [
+    {
+      filePath: 'data/ai-plan.json',
+      defaultContent: { plan: [] }
+    },
+    {
+      filePath: 'data/services.json',
+      defaultContent: []
+    },
+    {
+      filePath: 'data/projects.json',
+      defaultContent: []
+    },
+    {
+      filePath: 'content/about.md',
+      defaultContent: '# About\n\nWelcome to our AI agency.\n'
+    },
+    {
+      filePath: 'data/contact.json',
+      defaultContent: { email: '', phone: '' }
+    }
+  ];
 
-  try {
-    await fs.mkdir(baseDataDir, { recursive: true });
-
-    const sections = ['home', 'services', 'projects', 'about', 'contact'];
-    let createdCount = 0;
-
-    for (const section of sections) {
-      const filePath = path.join(baseDataDir, `${section}.json`);
-      try {
-        await fs.access(filePath);
-        // File exists: verify JSON validity
+  for (const { filePath, defaultContent } of requiredFiles) {
+    const fullPath = path.resolve(baseDir, filePath);
+    await fs.mkdir(path.dirname(fullPath), { recursive: true });
+    try {
+      await fs.access(fullPath);
+      if (path.extname(fullPath).toLowerCase() === '.json') {
         try {
-          const content = await fs.readFile(filePath, 'utf8');
-          JSON.parse(content);
-        } catch {
-          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-          const backupPath = `${filePath}.bak-${timestamp}`;
-          await fs.rename(filePath, backupPath);
-          await fs.writeFile(filePath, JSON.stringify({}, null, 2), { encoding: 'utf8' });
-          console.warn(`Warning: Invalid JSON in ${filePath}. Backed up to ${backupPath} and recreated.`);
-          createdCount++;
-        }
-      } catch {
-        // File missing: create atomically
-        try {
-          await fs.writeFile(filePath, JSON.stringify({}, null, 2), { flag: 'wx', encoding: 'utf8' });
-          console.log(`Created missing AI file: ${filePath}`);
-          createdCount++;
+          const data = await fs.readFile(fullPath, 'utf8');
+          JSON.parse(data);
         } catch (err) {
-          if (err.code !== 'EEXIST') throw err;
+          if (err.name === 'SyntaxError') {
+            const content = typeof defaultContent === 'string'
+              ? defaultContent
+              : JSON.stringify(defaultContent, null, 2) + '\n';
+            await fs.writeFile(fullPath, content, 'utf8');
+            console.log(`Recreated malformed file: ${filePath}`);
+          } else {
+            throw err;
+          }
+        }
+      }
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        const content = typeof defaultContent === 'string'
+          ? defaultContent
+          : JSON.stringify(defaultContent, null, 2) + '\n';
+        await fs.writeFile(fullPath, content, 'utf8');
+        console.log(`Created missing file: ${filePath}`);
+      } else {
+        throw err;
+      }
+    }
+  }
+}
+
+if (require.main === module) {
+  (async () => {
+    const argv = process.argv.slice(2);
+    let baseDir = __dirname;
+    for (let i = 0; i < argv.length; i++) {
+      if (argv[i] === '--base-path' || argv[i] === '-b') {
+        if (i + 1 < argv.length) {
+          baseDir = path.resolve(process.cwd(), argv[i + 1]);
+          i++;
+        } else {
+          console.error('Error: --base-path requires a path argument');
+          process.exit(1);
         }
       }
     }
-
-    if (createdCount === 0) {
-      console.log('All AI files are present and valid.');
+    try {
+      await addMissingAiFiles(baseDir);
+    } catch (err) {
+      console.error('Error adding missing AI files:', err);
+      process.exit(1);
     }
-  } catch (error) {
-    console.error('Error adding missing AI files:', error);
-    process.exit(1);
-  }
-})();
+  })();
+}
+
+module.exports = { addMissingAiFiles };
