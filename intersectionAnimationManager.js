@@ -1,5 +1,5 @@
 class IntersectionAnimationManager {
-  constructor(selector = '.reveal', options = {}) {
+  constructor(selector = 'section, .service-card, .project-card', options = {}) {
     this.selector = selector;
     this.options = options;
     this.observer = null;
@@ -12,7 +12,7 @@ class IntersectionAnimationManager {
     if (this.remaining === 0) return;
 
     if (!('IntersectionObserver' in window)) {
-      elements.forEach(el => el.classList.add('visible'));
+      elements.forEach(el => el.classList.add('in-view'));
       return;
     }
 
@@ -23,7 +23,7 @@ class IntersectionAnimationManager {
   handleIntersect(entries, observer) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add('in-view');
         observer.unobserve(entry.target);
         this.remaining--;
       }
