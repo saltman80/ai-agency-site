@@ -226,7 +226,8 @@ section {
   opacity: 0;
   transform: translateY(20px);
 }
-section:not(#home)::before {
+/* add a thin accent line to the top of every section */
+section::before {
   content: '';
   position: absolute;
   top: 0;
