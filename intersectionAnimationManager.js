@@ -16,7 +16,10 @@ class IntersectionAnimationManager {
       return;
     }
 
-    this.observer = new IntersectionObserver(this.handleIntersect.bind(this), this.options);
+    this.observer = new IntersectionObserver(
+      this.handleIntersect.bind(this),
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
+    );
     elements.forEach(el => this.observer.observe(el));
   }
 
