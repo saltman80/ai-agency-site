@@ -28,10 +28,7 @@ html {
 section {
   position: relative;
   padding-top: calc(4rem + 4px);
-}
-
-/* ensure other sections still clear the header on anchor scroll */
-section:not(#home) {
+  /* ensure anchor links land flush below the navbar */
   scroll-margin-top: var(--header-height);
 }
 /* add a thin accent line to the top of every section */
