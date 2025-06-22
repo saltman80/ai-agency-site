@@ -91,7 +91,7 @@ body.loaded {
   width: 100%;
   height: 4px;
   background: var(--accent);
-  z-index: -1;
+  z-index: 1001;
 }
 .navbar .logo {
   font-size: 1.5rem;
@@ -226,7 +226,7 @@ section {
   opacity: 0;
   transform: translateY(20px);
 }
-section::before {
+section:not(#home)::before {
   content: '';
   position: absolute;
   top: 0;
@@ -244,7 +244,7 @@ section::before {
 #home .content {
   max-width: 800px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .hero-banner {
   display: block;
@@ -256,6 +256,7 @@ section::before {
   max-height: 250px;
   object-fit: cover;
   border-radius: 0 0 10px 10px;
+  z-index: 1;
 }
 #home h1 {
   font-size: 2.5rem;
