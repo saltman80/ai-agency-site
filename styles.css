@@ -112,3 +112,53 @@ section::before {
   margin: 0.5rem auto 0;
   border-radius: 2px;
 }
+
+/* Laser beam animation */
+.laser-beam {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+  pointer-events: none;
+  z-index: 2000;
+  transform-origin: 0 50%;
+  animation: laser-move var(--duration) linear forwards;
+}
+
+@keyframes laser-move {
+  from {
+    transform: translateX(-150vw) rotate(var(--angle));
+  }
+  to {
+    transform: translateX(150vw) rotate(var(--angle));
+  }
+}
+
+/* Lightning bolt animation */
+.lightning-bolt {
+  position: fixed;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+.lightning-bolt .segment {
+  position: absolute;
+  left: 0;
+  top: var(--offset);
+  width: var(--length);
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+  transform-origin: 0 0;
+  transform: rotate(var(--angle)) scaleX(0);
+  animation: lightning-grow 0.2s linear forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes lightning-grow {
+  to {
+    transform: rotate(var(--angle)) scaleX(1);
+  }
+}
