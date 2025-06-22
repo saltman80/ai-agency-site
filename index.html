@@ -455,6 +455,40 @@ footer {
 .page-transition-overlay.page-transition-exit {
   opacity: 0;
 }
+
+/* Laser background and bullet styles */
+.laser-bg {
+  background: radial-gradient(circle at center, rgba(0, 229, 255, 0.15), transparent 70%), linear-gradient(135deg, #111 0%, #222 100%);
+}
+
+.laser-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem auto 0;
+  max-width: 600px;
+  text-align: left;
+}
+
+.laser-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.laser-list li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent);
+}
+
+@media (max-width: 600px) {
+  h1,
+  h2 {
+    padding-top: 20px;
+  }
+}
 </style>
 </head>
 <body>
@@ -464,9 +498,11 @@ footer {
   <nav>
     <ul>
       <li><a href="#home">Home</a></li>
+      <li><a href="#why-vibe">Why Vibe</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#cro-psychology">CRO Psychology</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -475,9 +511,11 @@ footer {
 <nav class="mobile-nav">
   <ul>
     <li><a href="#home">Home</a></li>
+    <li><a href="#why-vibe">Why Vibe</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#cro-psychology">CRO Psychology</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -489,6 +527,15 @@ footer {
       <p>We build custom AI plugins, extensions and content that scale your business quickly and affordably.</p>
       <a href="#services" class="btn">Our Services</a>
     </div>
+  </section>
+  <section id="why-vibe" class="laser-bg">
+    <h2>Why Vibe</h2>
+    <p>Our approach applies CRO psychology to build trust and drive action.</p>
+    <ul class="laser-list">
+      <li>Personalized AI solutions reduce friction and keep users engaged.</li>
+      <li>Clear value messaging increases confidence in every step.</li>
+      <li>Rapid iterations maintain momentum and urgency.</li>
+    </ul>
   </section>
   <section id="services">
     <h2>Services</h2>
@@ -574,6 +621,15 @@ footer {
         </div>
       </div>
     </div>
+  </section>
+  <section id="cro-psychology" class="laser-bg">
+    <h2>CRO Psychology</h2>
+    <p>Vibe tactics leverage behavioral science to compel more conversions.</p>
+    <ul class="laser-list">
+      <li>Scarcity and social proof create urgency to act.</li>
+      <li>Authority cues and data build credibility.</li>
+      <li>Transparent processes remove doubt and inspire trust.</li>
+    </ul>
   </section>
   <section id="contact">
     <h2>Contact Us</h2>
