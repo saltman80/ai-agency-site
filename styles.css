@@ -1,5 +1,7 @@
 :root {
   --header-height: 80px;
+  /* accent color used for the thin blue divider */
+  --accent: #00e5ff;
 }
 
 html {
@@ -13,7 +15,8 @@ section {
   padding-top: calc(4rem + 4px);
   scroll-margin-top: var(--header-height);
 }
-section:not(#home)::before {
+/* add a thin accent line to the top of every section */
+section::before {
   content: '';
   position: absolute;
   top: 0;
