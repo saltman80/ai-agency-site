@@ -11,14 +11,13 @@
 
     init() {
       this.createOverlay();
-      const initialHash = window.location.hash;
-      if (initialHash) {
-        const id = initialHash.slice(1);
-        const target = document.getElementById(id);
-        if (target) {
-          this.scrollToSection(initialHash);
-        }
+      const initialHash = window.location.hash || '#home';
+      const id = initialHash.slice(1);
+      const target = document.getElementById(id);
+      if (target) {
+        this.scrollToSection(initialHash);
       }
+      this.updateActiveLink(initialHash);
       document.body.addEventListener('click', this.onLinkClick.bind(this));
       window.addEventListener('popstate', this.onPopState.bind(this));
     }
@@ -59,12 +58,23 @@
         await this.transitionOut();
         if (!isPop) history.pushState(null, '', targetHash);
         this.scrollToSection(targetHash);
+        if (targetHash === '#home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        this.updateActiveLink(targetHash);
         await this.transitionIn();
       } catch (error) {
         console.error('Page transition error:', error);
       } finally {
         this.isAnimating = false;
       }
+    }
+
+    updateActiveLink(hash) {
+      const links = document.querySelectorAll('.navbar nav li a');
+      links.forEach(a => a.classList.remove('active'));
+      const target = Array.from(links).find(a => a.getAttribute('href') === hash);
+      if (target) target.classList.add('active');
     }
 
     scrollToSection(hash) {
