@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0",
+  "metadata": {
+    "author": "FutureForm AI",
+    "createdAt": "2025-06-19T12:00:00Z"
+  },
+  "planId": "aiFileAddition",
+  "confirmed": true,
+  "confirmedAt": "2025-06-19T12:00:00Z",
+  "filesAdded": [
+    {
+      "path": "index.html",
+      "type": "html",
+      "description": "Main single-page entry with section-based layout"
+    },
+    {
+      "path": "styles.css",
+      "type": "css",
+      "description": "Global styles: dark theme, neon accents, glassmorphism with prefers-color-scheme support"
+    },
+    {
+      "path": "scripts.js",
+      "type": "javascript",
+      "description": "Site logic: responsive behavior, scroll-triggered and transition animations with reduced-motion detection"
+    },
+    {
+      "path": "data/services.json",
+      "type": "json",
+      "description": "Content for Services section"
+    },
+    {
+      "path": "data/projects.json",
+      "type": "json",
+      "description": "Content for Projects section"
+    }
+  ],
+  "flags": {
+    "mobileFirst": true,
+    "responsive": true,
+    "noExternalAssets": true,
+    "respectPrefersReducedMotion": true,
+    "respectPrefersColorScheme": true
+  },
+  "features": [
+    "dark-theme",
+    "neon-accents",
+    "glassmorphism",
+    "scroll-triggered-animations",
+    "page-transitions",
+    "prefers-reduced-motion-support",
+    "theme-toggle"
+  ]
+}
