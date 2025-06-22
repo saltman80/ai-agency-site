@@ -238,8 +238,9 @@ section:not(#home)::before {
 }
 #home {
   background: linear-gradient(135deg, #111 0%, #222 100%);
-  margin-top: 0;
+  margin-top: calc(-1 * var(--header-height));
   padding-top: 0;
+  scroll-margin-top: 0;
 }
 #home .content {
   max-width: 800px;
