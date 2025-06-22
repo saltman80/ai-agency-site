@@ -1,0 +1,64 @@
+:root {
+  --neon-red: #ff005f;
+  --missing-opacity: 0.25;
+  --transition-speed: 0.3s;
+}
+
+.plan-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.plan-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--text-color, #e0e0e0);
+  transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.plan-item--missing {
+  opacity: var(--missing-opacity);
+  color: var(--neon-red);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.plan-item__icon {
+  margin-right: 0.5rem;
+  color: var(--neon-red);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+@keyframes missingGlow {
+  0%, 100% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 8px var(--neon-red), 0 0 16px var(--neon-red);
+  }
+}
+
+.plan-item--missing.in-view {
+  animation: missingGlow 1.5s ease-in-out infinite;
+  will-change: text-shadow;
+}
+
+@media (max-width: 600px) {
+  .plan-item {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .plan-item__icon {
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-item--missing.in-view {
+    animation: none;
+  }
+}
