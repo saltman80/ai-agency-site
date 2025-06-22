@@ -117,13 +117,14 @@ section::before {
 .laser-beam {
   position: fixed;
   top: 50%;
-  left: 0;
-  height: 2px;
+  left: 50%;
+  width: 200vw;
+  height: 3px;
   background: var(--accent);
   box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
   pointer-events: none;
   z-index: 3000;
-  transform-origin: 0 50%;
+  transform-origin: center;
   opacity: 1;
   animation: laser-move var(--duration) linear forwards,
              laser-fade 2s linear forwards;
@@ -131,10 +132,10 @@ section::before {
 
 @keyframes laser-move {
   from {
-    transform: translateX(-150vw) rotate(var(--angle));
+    transform: translateX(-50vw) rotate(var(--angle));
   }
   to {
-    transform: translateX(150vw) rotate(var(--angle));
+    transform: translateX(50vw) rotate(var(--angle));
   }
 }
 

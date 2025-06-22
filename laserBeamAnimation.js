@@ -1,7 +1,7 @@
 (function() {
-  const MIN_INTERVAL = 5000;
-  const MAX_INTERVAL = 5000;
-  const INITIAL_DELAY = 1000;
+  const MIN_INTERVAL = 3000;
+  const MAX_INTERVAL = 4000;
+  const INITIAL_DELAY = 500;
 
   function createStraightBeam(angle) {
     const beam = document.createElement('div');
@@ -18,10 +18,8 @@
 
 
   function launchBeams() {
-    const angle1 = Math.random() * 360;
-    const angle2 = (angle1 + 180) % 360;
-    createStraightBeam(angle1);
-    createStraightBeam(angle2);
+    createStraightBeam(-45);
+    createStraightBeam(45);
   }
 
   function scheduleNext() {
