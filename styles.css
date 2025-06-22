@@ -122,7 +122,7 @@ section::before {
   background: var(--accent);
   box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
   pointer-events: none;
-  z-index: 2000;
+  z-index: 3000;
   transform-origin: 0 50%;
   opacity: 1;
   animation: laser-move var(--duration) linear forwards,

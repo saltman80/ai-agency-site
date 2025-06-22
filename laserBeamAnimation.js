@@ -1,7 +1,7 @@
 (function() {
-  const MIN_INTERVAL = 2000;
-  const MAX_INTERVAL = 6000;
-  const INITIAL_DELAY = 3000;
+  const MIN_INTERVAL = 5000;
+  const MAX_INTERVAL = 5000;
+  const INITIAL_DELAY = 1000;
 
   function createStraightBeam(angle) {
     const beam = document.createElement('div');
