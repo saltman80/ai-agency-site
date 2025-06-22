@@ -387,6 +387,26 @@ footer {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.5);
 }
+
+/* page transition overlay */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2000;
+}
+.page-transition-overlay.active {
+  pointer-events: auto;
+}
+.page-transition-overlay.page-transition-enter {
+  opacity: 1;
+}
+.page-transition-overlay.page-transition-exit {
+  opacity: 0;
+}
 </style>
 </head>
 <body>
@@ -552,25 +572,12 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileNav.classList.remove('active');
     });
   });
-  const observerOptions = { threshold: 0.1 };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        entry.target.querySelectorAll('.skill-progress').forEach(bar => {
-          bar.style.width = bar.getAttribute('data-progress');
-        });
-      }
-    });
-  }, observerOptions);
-  document.querySelectorAll('section, .service-card, .project-card').forEach(el => {
-    observer.observe(el);
-  });
 });
 </script>
 <script src="preloadLazyLoadManager.js"></script>
 <script src="parallaxScrollHandler.js"></script>
 <script src="intersectionAnimationManager.js"></script>
 <script src="contactFormLifecycleManager.js"></script>
+<script src="pageTransitionController.js"></script>
 </body>
 </html>
