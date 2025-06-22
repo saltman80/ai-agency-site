@@ -1,0 +1,531 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Agency - Cutting-edge AI solutions for your business.">
+<title>AI Agency</title>
+<style>
+:root {
+  --bg: #0d0d0d;
+  --fg: #ffffff;
+  --accent: #00e5ff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --transition: all 0.5s ease;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+body.loaded {
+  opacity: 1;
+}
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--glass-border);
+  border-top: 5px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+.navbar nav {
+  display: none;
+}
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+.navbar nav li a {
+  position: relative;
+  text-decoration: none;
+  color: var(--fg);
+  padding: 0.5rem;
+  transition: var(--transition);
+}
+.navbar nav li a:hover {
+  color: var(--accent);
+}
+.navbar nav li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.navbar nav li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: var(--fg);
+  border-radius: 3px;
+  transition: var(--transition);
+}
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+  .navbar nav {
+    display: block;
+  }
+}
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(13, 13, 13, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+.mobile-nav.active {
+  transform: translateX(0);
+}
+.mobile-nav ul {
+  list-style: none;
+  text-align: center;
+}
+.mobile-nav ul li {
+  margin: 1rem 0;
+}
+.mobile-nav ul li a {
+  color: var(--fg);
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.mobile-nav ul li a:hover {
+  color: var(--accent);
+}
+main {
+  padding-top: 80px;
+}
+section {
+  padding: 4rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+#home {
+  background: linear-gradient(135deg, #111 0%, #222 100%);
+}
+#home .content {
+  max-width: 800px;
+}
+#home h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+#home p {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+#home .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+#home .btn:hover {
+  box-shadow: 0 0 10px var(--accent);
+}
+#services .grid,
+#projects .grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+@media (min-width: 600px) {
+  #services .grid,
+  #projects .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  #services .grid,
+  #projects .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.service-card,
+.project-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, var(--transition);
+}
+.service-card.in-view,
+.project-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.service-card:hover,
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+.service-icon,
+.project-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.service-card h3,
+.project-card h3 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.service-card p,
+.project-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+#about .about-content {
+  max-width: 800px;
+}
+#about p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+#about .skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.skill {
+  width: 100%;
+}
+.skill-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+.skill-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.skill-progress {
+  height: 100%;
+  background: var(--accent);
+  width: 0;
+  transition: width 1s ease-out;
+}
+#contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+#contact input,
+#contact textarea {
+  padding: 0.75rem 1rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: var(--fg);
+  font-size: 1rem;
+  resize: none;
+  backdrop-filter: blur(10px);
+}
+#contact input:focus,
+#contact textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+#contact button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+#contact button:hover {
+  box-shadow: 0 0 10px var(--accent);
+}
+footer {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+</style>
+</head>
+<body>
+<div id="page-loader"><div class="spinner"></div></div>
+<header class="navbar">
+  <div class="logo">AI Agency</div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-toggle"><span></span><span></span><span></span></div>
+</header>
+<nav class="mobile-nav">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<main>
+  <section id="home">
+    <div class="content">
+      <h1>Welcome to AI Agency</h1>
+      <p>We deliver cutting-edge AI solutions to drive innovation and growth for your business.</p>
+      <a href="#services" class="btn">Our Services</a>
+    </div>
+  </section>
+  <section id="services">
+    <h2>Services</h2>
+    <div class="grid">
+      <div class="service-card">
+        <div class="service-icon">?</div>
+        <h3>AI Strategy</h3>
+        <p>We craft tailored AI roadmaps aligned with your business objectives.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">?</div>
+        <h3>Implementation</h3>
+        <p>From prototyping to deployment, we bring AI solutions to life.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">?</div>
+        <h3>Optimization</h3>
+        <p>Enhance performance and scalability of your AI models.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">?</div>
+        <h3>Support</h3>
+        <p>Continuous monitoring and support for sustained AI success.</p>
+      </div>
+    </div>
+  </section>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="grid">
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>Project Alpha</h3>
+        <p>AI-powered analytics platform for real-time insights.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>Global Chatbot</h3>
+        <p>Multilingual conversational AI for global customer engagement.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>Security Suite</h3>
+        <p>AI-driven security solutions to protect your data.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>Smart Factory</h3>
+        <p>Automated monitoring and optimization for manufacturing.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>Innovation Lab</h3>
+        <p>Rapid prototyping and testing of new AI concepts.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">?</div>
+        <h3>SupplySense</h3>
+        <p>Predictive supply chain management with AI forecasts.</p>
+      </div>
+    </div>
+  </section>
+  <section id="about">
+    <h2>About Us</h2>
+    <div class="about-content">
+      <p>At AI Agency, we believe in harnessing the power of artificial intelligence to transform businesses and society. Our team of experts is dedicated to delivering innovative, reliable, and ethical AI solutions.</p>
+      <div class="skills">
+        <div class="skill">
+          <div class="skill-label"><span>Machine Learning</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-label"><span>Data Engineering</span><span>85%</span></div>
+          <div class="skill-bar"><div class="skill-progress" data-progress="85%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-label"><span>Cloud Computing</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-progress" data-progress="80%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-label"><span>AI Ethics</span><span>75%</span></div>
+          <div class="skill-bar"><div class="skill-progress" data-progress="75%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+</main>
+<footer>
+  &copy; 2025 AI Agency. All rights reserved.
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+  const loader = document.getElementById('page-loader');
+  loader.addEventListener('transitionend', () => {
+    if (loader.classList.contains('hidden')) loader.remove();
+  });
+  setTimeout(() => loader.classList.add('hidden'), 800);
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileNav = document.querySelector('.mobile-nav');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+  });
+  document.querySelectorAll('.mobile-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('active');
+      mobileNav.classList.remove('active');
+    });
+  });
+  const observerOptions = { threshold: 0.1 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        entry.target.querySelectorAll('.skill-progress').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-progress');
+        });
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('section, .service-card, .project-card').forEach(el => {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>
