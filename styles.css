@@ -1,7 +1,17 @@
+:root {
+  --header-height: 80px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
 /* Section layout */
 section {
   position: relative;
   padding-top: calc(4rem + 4px);
+  scroll-margin-top: var(--header-height);
 }
 section::before {
   content: '';

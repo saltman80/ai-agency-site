@@ -15,6 +15,7 @@
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.2);
   --transition: all 0.5s ease;
+  --header-height: 80px;
 }
 * {
   box-sizing: border-box;
@@ -23,6 +24,7 @@
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
 }
 body {
   margin: 0;
@@ -208,12 +210,13 @@ body.loaded {
   color: var(--accent);
 }
 main {
-  padding-top: 80px;
+  padding-top: var(--header-height);
 }
 section {
   position: relative;
   padding: 4rem 2rem;
   padding-top: calc(4rem + 4px);
+  scroll-margin-top: var(--header-height);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
