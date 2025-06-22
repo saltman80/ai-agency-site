@@ -1,5 +1,4 @@
 (function() {
-  const COLOR = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#00e5ff';
   const INTERVAL = 10000;
 
   function createStraightBeam(angle) {
@@ -11,11 +10,11 @@
     beam.addEventListener('animationend', () => beam.remove());
   }
 
-  function createLightningBeam(angle) {
+  function createLightningBeam() {
     const container = document.createElement('div');
-    container.className = 'laser-beam lightning';
-    container.style.setProperty('--angle', angle + 'deg');
-    container.style.setProperty('--duration', (0.8 + Math.random() * 0.4) + 's');
+    container.className = 'lightning-bolt';
+    container.style.left = (10 + Math.random() * 80) + 'vw';
+    container.style.top = '-5%';
 
     const segCount = 3 + Math.floor(Math.random() * 3);
     let offset = 0;
@@ -23,24 +22,26 @@
       const seg = document.createElement('div');
       seg.className = 'segment';
       const length = 60 + Math.random() * 40;
-      const skew = (Math.random() * 20) - 10;
-      seg.style.width = length + 'px';
-      seg.style.left = offset + 'px';
-      seg.style.transform = `rotate(${skew}deg)`;
+      const angle = (Math.random() * 40) - 20;
+      seg.style.setProperty('--length', length + 'px');
+      seg.style.setProperty('--angle', angle + 'deg');
+      seg.style.setProperty('--offset', offset + 'px');
+      seg.style.setProperty('--delay', (i * 0.1) + 's');
       container.appendChild(seg);
-      offset += length;
+      offset += Math.cos(angle * Math.PI / 180) * length;
     }
-    container.style.width = offset + 'px';
+    container.style.height = offset + 'px';
 
     document.body.appendChild(container);
-    container.addEventListener('animationend', () => container.remove());
+    const last = container.lastElementChild;
+    last.addEventListener('animationend', () => container.remove());
   }
 
   function launchBeam() {
     const angle = Math.random() * 360;
-    const lightning = Math.random() < 0.3;
+    const lightning = Math.random() < 0.5;
     if (lightning) {
-      createLightningBeam(angle);
+      createLightningBeam();
     } else {
       createStraightBeam(angle);
     }

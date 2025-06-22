@@ -136,14 +136,29 @@ section::before {
   }
 }
 
-.laser-beam.lightning {
-  background: none;
+/* Lightning bolt animation */
+.lightning-bolt {
+  position: fixed;
+  pointer-events: none;
+  z-index: 2000;
 }
 
-.laser-beam.lightning .segment {
+.lightning-bolt .segment {
   position: absolute;
-  top: 0;
+  left: 0;
+  top: var(--offset);
+  width: var(--length);
   height: 2px;
   background: var(--accent);
   box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+  transform-origin: 0 0;
+  transform: rotate(var(--angle)) scaleX(0);
+  animation: lightning-grow 0.2s linear forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes lightning-grow {
+  to {
+    transform: rotate(var(--angle)) scaleX(1);
+  }
 }
