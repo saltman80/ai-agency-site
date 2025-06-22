@@ -1,6 +1,6 @@
-# AI Agency Site
+# AI Vibe Agency Site
 
-This project contains a static, single-page website for an AI agency. All HTML, CSS and JavaScript files are included and no build step is required.
+This project contains a static, single-page website for the AI Vibe Agency. All HTML, CSS and JavaScript files are included and no build step is required.
 
 ## Running locally
 
