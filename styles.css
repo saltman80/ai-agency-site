@@ -124,7 +124,9 @@ section::before {
   pointer-events: none;
   z-index: 2000;
   transform-origin: 0 50%;
-  animation: laser-move var(--duration) linear forwards;
+  opacity: 1;
+  animation: laser-move var(--duration) linear forwards,
+             laser-fade 2s linear forwards;
 }
 
 @keyframes laser-move {
@@ -134,6 +136,11 @@ section::before {
   to {
     transform: translateX(150vw) rotate(var(--angle));
   }
+}
+
+@keyframes laser-fade {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* Lightning beam animation */
