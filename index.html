@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="AI Agency - Custom AI plugins, extensions and content for WordPress, Shopify and more.">
 <title>AI Agency</title>
+<link rel="stylesheet" href="float-button.css">
 <style>
 :root {
   --bg: #0d0d0d;
@@ -415,7 +416,7 @@ footer {
 <main>
   <section id="home">
     <div class="content">
-      <img loading="lazy" src="images/hero-banner.png" alt="AI Agency banner" class="hero-banner">
+      <img data-src="images/hero-banner.png" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="AI Agency banner" class="hero-banner" data-parallax-speed="0.3">
       <h1>Welcome to AI Agency</h1>
       <p>We build custom AI plugins, extensions and content that scale your business quickly and affordably.</p>
       <a href="#services" class="btn">Our Services</a>
@@ -424,22 +425,22 @@ footer {
   <section id="services">
     <h2>Services</h2>
     <div class="grid">
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-icon"><img loading="lazy" src="images/icon-ai-strategy.png" alt="AI Plugins"></div>
         <h3>AI Plugins &amp; Extensions</h3>
         <p>Custom AI-powered plugins for WordPress, Shopify and other platforms.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-icon"><img loading="lazy" src="images/icon-implementation.png" alt="Custom Tools"></div>
         <h3>Custom Tools</h3>
         <p>Specialized AI integrations that scale and optimize any workflow.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-icon"><img loading="lazy" src="images/icon-optimization.png" alt="AI SEO Content"></div>
         <h3>AI SEO Content</h3>
         <p>Optimized articles and social posts powered by advanced AI.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-icon"><img loading="lazy" src="images/icon-support.png" alt="AI Coding Team"></div>
         <h3>Fast AI Coding</h3>
         <p>Our expert developers deliver custom solutions quickly and affordably.</p>
@@ -449,32 +450,32 @@ footer {
   <section id="projects">
     <h2>Projects</h2>
     <div class="grid">
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-alpha.png" alt="VibeSheet.ai"></div>
         <h3>VibeSheet.ai</h3>
         <p>A collaborative AI spreadsheet loved by over 1500 users.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-chatbot.png" alt="AahSheet.com"></div>
         <h3>AahSheet.com</h3>
         <p>Easy AI sheet builder empowering small businesses worldwide.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-security.png" alt="Security Suite"></div>
         <h3>Security Suite</h3>
         <p>AI-driven security solutions to protect your data.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-factory.png" alt="Smart Factory"></div>
         <h3>Smart Factory</h3>
         <p>Automated monitoring and optimization for manufacturing.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-innovation.png" alt="Innovation Lab"></div>
         <h3>Innovation Lab</h3>
         <p>Rapid prototyping and testing of new AI concepts.</p>
       </div>
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-icon"><img loading="lazy" src="images/project-supply.png" alt="SupplySense"></div>
         <h3>SupplySense</h3>
         <p>Predictive supply chain management with AI forecasts.</p>
@@ -483,7 +484,7 @@ footer {
   </section>
   <section id="about">
     <h2>About Us</h2>
-    <div class="about-content">
+    <div class="about-content reveal">
       <img loading="lazy" src="images/about-team.png" alt="Our Team" class="about-img">
       <p>At AI Agency, we craft specialized AI plugins, extensions and content so every business can scale with ease. Our coding team delivers results fast and for a fraction of the cost of traditional development. We empower people to build with AI at all levels to support and grow small businesses globally.</p>
       <div class="skills">
@@ -508,11 +509,21 @@ footer {
   </section>
   <section id="contact">
     <h2>Contact Us</h2>
-    <img loading="lazy" src="images/contact-banner.png" alt="Get in touch" class="contact-banner">
-        <form>
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <img loading="lazy" src="images/contact-banner.png" alt="Get in touch" class="contact-banner reveal">
+    <form id="contact-form" class="reveal">
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <span class="error-text"></span>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Your Email" required>
+        <span class="error-text"></span>
+      </div>
+      <div class="form-group">
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <span class="error-text"></span>
+      </div>
+      <div class="form-error"></div>
       <button type="submit">Send Message</button>
     </form>
   </section>
@@ -520,6 +531,7 @@ footer {
 <footer>
   &copy; 2025 AI Agency. All rights reserved.
 </footer>
+<a href="#home" class="float-button pulse" aria-label="Back to Top">&#8679;</a>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('loaded');
@@ -556,5 +568,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<script src="preloadLazyLoadManager.js"></script>
+<script src="parallaxScrollHandler.js"></script>
+<script src="intersectionAnimationManager.js"></script>
+<script src="contactFormLifecycleManager.js"></script>
 </body>
 </html>
