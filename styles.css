@@ -136,29 +136,28 @@ section::before {
   }
 }
 
-/* Lightning bolt animation */
-.lightning-bolt {
+/* Lightning beam animation */
+.lightning-beam {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 2000;
 }
 
-.lightning-bolt .segment {
-  position: absolute;
-  left: 0;
-  top: var(--offset);
-  width: var(--length);
-  height: 2px;
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
-  transform-origin: 0 0;
-  transform: rotate(var(--angle)) scaleX(0);
-  animation: lightning-grow 0.2s linear forwards;
-  animation-delay: var(--delay);
+.lightning-beam polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 12px var(--accent));
 }
 
-@keyframes lightning-grow {
+@keyframes lightning-draw {
   to {
-    transform: rotate(var(--angle)) scaleX(1);
+    stroke-dashoffset: 0;
   }
 }
