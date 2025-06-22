@@ -11,6 +11,8 @@
 
     init() {
       this.createOverlay();
+      document.addEventListener('click', this.onLinkClick.bind(this));
+      window.addEventListener('popstate', this.onPopState.bind(this));
       const initialHash = window.location.hash || '#home';
       this.navigate(initialHash, /*isPop=*/true);
     }
