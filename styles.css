@@ -13,7 +13,7 @@ section {
   padding-top: calc(4rem + 4px);
   scroll-margin-top: var(--header-height);
 }
-section::before {
+section:not(#home)::before {
   content: '';
   position: absolute;
   top: 0;
@@ -40,11 +40,12 @@ section::before {
   max-height: 250px;
   object-fit: cover;
   border-radius: 0 0 10px 10px;
+  z-index: 1;
 }
 
 #home .content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Remove per-element transitions and drive all fades here */

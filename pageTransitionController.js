@@ -12,14 +12,7 @@
     init() {
       this.createOverlay();
       const initialHash = window.location.hash || '#home';
-      const id = initialHash.slice(1);
-      const target = document.getElementById(id);
-      if (target) {
-        this.scrollToSection(initialHash);
-      }
-      this.updateActiveLink(initialHash);
-      document.body.addEventListener('click', this.onLinkClick.bind(this));
-      window.addEventListener('popstate', this.onPopState.bind(this));
+      this.navigate(initialHash, /*isPop=*/true);
     }
 
     createOverlay() {
@@ -57,14 +50,18 @@
       try {
         await this.transitionOut();
         if (!isPop) history.pushState(null, '', targetHash);
-        this.scrollToSection(targetHash);
-        if (targetHash === '#home') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        const id = targetHash.slice(1);
+        if (id === 'home') {
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        } else {
+          document.getElementById(id).scrollIntoView({ behavior: 'auto', block: 'start' });
         }
-        this.updateActiveLink(targetHash);
+
+        document.querySelectorAll('.navbar nav a').forEach(a => a.classList.remove('active'));
+        document.querySelector(`.navbar nav a[href="${targetHash}"]`)?.classList.add('active');
+
         await this.transitionIn();
-      } catch (error) {
-        console.error('Page transition error:', error);
       } finally {
         this.isAnimating = false;
       }
