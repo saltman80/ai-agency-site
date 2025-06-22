@@ -1,43 +1,49 @@
-const fs = require('fs');
 const path = require('path');
+const { promises: fs } = require('fs');
 
-const rawFileName = process.argv[2] || 'ai-config.json';
-const safeNameRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*\.json$/;
-if (rawFileName !== path.basename(rawFileName) || !safeNameRegex.test(rawFileName)) {
-  console.error('Error: Invalid file name. Only .json files with alphanumeric characters, dots, underscores, and hyphens are allowed, and no path separators.');
-  process.exit(1);
-}
-const fileName = rawFileName;
-const filePath = path.resolve(process.cwd(), fileName);
+(async () => {
+  const defaultDataDir = path.join(__dirname, 'data');
+  const baseDataDir = process.env.BASE_DATA_PATH || process.argv[2] || defaultDataDir;
 
-const defaultConfig = {
-  apiKey: '',
-  endpoint: 'https://api.your-ai-endpoint.com/v1',
-  model: 'gpt-3.5-turbo',
-  temperature: 0.7,
-  maxTokens: 1500
-};
+  try {
+    await fs.mkdir(baseDataDir, { recursive: true });
 
-try {
-  if (fs.existsSync(filePath)) {
-    console.log(`${fileName} already exists.`);
-  } else {
-    fs.writeFileSync(filePath, JSON.stringify(defaultConfig, null, 2), { encoding: 'utf8', mode: 0o600 });
-    console.log(`Created ${fileName} with permissions 600.`);
-  }
+    const sections = ['home', 'services', 'projects', 'about', 'contact'];
+    let createdCount = 0;
 
-  const gitignorePath = path.resolve(process.cwd(), '.gitignore');
-  if (fs.existsSync(gitignorePath)) {
-    const content = fs.readFileSync(gitignorePath, 'utf8');
-    const lines = content.split(/\r?\n/);
-    if (!lines.includes(fileName)) {
-      fs.appendFileSync(gitignorePath, `${fileName}\n`, 'utf8');
-      console.log(`Appended ${fileName} to .gitignore.`);
+    for (const section of sections) {
+      const filePath = path.join(baseDataDir, `${section}.json`);
+      try {
+        await fs.access(filePath);
+        // File exists: verify JSON validity
+        try {
+          const content = await fs.readFile(filePath, 'utf8');
+          JSON.parse(content);
+        } catch {
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const backupPath = `${filePath}.bak-${timestamp}`;
+          await fs.rename(filePath, backupPath);
+          await fs.writeFile(filePath, JSON.stringify({}, null, 2), { encoding: 'utf8' });
+          console.warn(`Warning: Invalid JSON in ${filePath}. Backed up to ${backupPath} and recreated.`);
+          createdCount++;
+        }
+      } catch {
+        // File missing: create atomically
+        try {
+          await fs.writeFile(filePath, JSON.stringify({}, null, 2), { flag: 'wx', encoding: 'utf8' });
+          console.log(`Created missing AI file: ${filePath}`);
+          createdCount++;
+        } catch (err) {
+          if (err.code !== 'EEXIST') throw err;
+        }
+      }
     }
-  } else {
-    console.warn(`Warning: .gitignore not found. Please add ${fileName} to .gitignore to avoid committing sensitive data.`);
+
+    if (createdCount === 0) {
+      console.log('All AI files are present and valid.');
+    }
+  } catch (error) {
+    console.error('Error adding missing AI files:', error);
+    process.exit(1);
   }
-} catch (error) {
-  console.error(`Error handling ${fileName}:`, error);
-  process.exit(1);
-}
+})();
