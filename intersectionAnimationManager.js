@@ -55,6 +55,7 @@ class IntersectionAnimationManager {
 function initIntersectionAnimationManager() {
   const manager = new IntersectionAnimationManager();
   manager.init();
+  document.getElementById('home').classList.add('in-view');
 }
 
 if (document.readyState === 'loading') {
