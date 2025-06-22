@@ -4,6 +4,20 @@
   --accent: #00e5ff;
 }
 
+/* keep header pinned to the very top */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* offset *all* page content below the header */
+main {
+  padding-top: var(--header-height);
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
@@ -13,6 +27,10 @@ html {
 section {
   position: relative;
   padding-top: calc(4rem + 4px);
+}
+
+/* ensure other sections still clear the header on anchor scroll */
+section:not(#home) {
   scroll-margin-top: var(--header-height);
 }
 /* add a thin accent line to the top of every section */
@@ -29,8 +47,9 @@ section::before {
 
 /* Slim full-width hero banner */
 #home {
-  margin-top: 0;
+  margin-top: calc(-1 * var(--header-height));
   padding-top: 0;
+  scroll-margin-top: 0;
 }
 
 .hero-banner {
