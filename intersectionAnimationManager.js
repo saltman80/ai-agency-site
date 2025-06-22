@@ -24,6 +24,12 @@ class IntersectionAnimationManager {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+
+        // Animate skill bars when About section comes into view:
+        entry.target.querySelectorAll('.skill-progress').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-progress');
+        });
+
         observer.unobserve(entry.target);
         this.remaining--;
       }
