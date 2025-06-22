@@ -162,10 +162,17 @@ section::before {
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 12px var(--accent));
+  opacity: 1;
 }
 
 @keyframes lightning-draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lightning-fade {
+  to {
+    opacity: 0;
   }
 }
