@@ -206,6 +206,12 @@ section.in-view {
 #home .content {
   max-width: 800px;
 }
+.hero-banner {
+  width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  border-radius: 15px;
+}
 #home h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
@@ -271,9 +277,17 @@ section.in-view {
 }
 .service-icon,
 .project-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--accent);
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+}
+.service-icon img,
+.project-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
 }
 .service-card h3,
 .project-card h3 {
@@ -287,6 +301,12 @@ section.in-view {
 }
 #about .about-content {
   max-width: 800px;
+}
+#about .about-img {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  border-radius: 15px;
 }
 #about p {
   margin-bottom: 1rem;
@@ -355,6 +375,12 @@ section.in-view {
 #contact button:hover {
   box-shadow: 0 0 10px var(--accent);
 }
+.contact-banner {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  border-radius: 15px;
+}
 footer {
   padding: 2rem;
   text-align: center;
@@ -390,6 +416,7 @@ footer {
 <main>
   <section id="home">
     <div class="content">
+      <img loading="lazy" src="https://via.placeholder.com/1200x400.png?text=Hero+Banner" alt="AI Agency banner" class="hero-banner">
       <h1>Welcome to AI Agency</h1>
       <p>We deliver cutting-edge AI solutions to drive innovation and growth for your business.</p>
       <a href="#services" class="btn">Our Services</a>
@@ -399,22 +426,22 @@ footer {
     <h2>Services</h2>
     <div class="grid">
       <div class="service-card">
-        <div class="service-icon">?</div>
+        <div class="service-icon"><img loading="lazy" src="https://via.placeholder.com/80.png?text=AI+Strategy" alt="AI Strategy"></div>
         <h3>AI Strategy</h3>
         <p>We craft tailored AI roadmaps aligned with your business objectives.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">?</div>
+        <div class="service-icon"><img loading="lazy" src="https://via.placeholder.com/80.png?text=Implementation" alt="Implementation"></div>
         <h3>Implementation</h3>
         <p>From prototyping to deployment, we bring AI solutions to life.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">?</div>
+        <div class="service-icon"><img loading="lazy" src="https://via.placeholder.com/80.png?text=Optimization" alt="Optimization"></div>
         <h3>Optimization</h3>
         <p>Enhance performance and scalability of your AI models.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">?</div>
+        <div class="service-icon"><img loading="lazy" src="https://via.placeholder.com/80.png?text=Support" alt="Support"></div>
         <h3>Support</h3>
         <p>Continuous monitoring and support for sustained AI success.</p>
       </div>
@@ -424,32 +451,32 @@ footer {
     <h2>Projects</h2>
     <div class="grid">
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Alpha" alt="Project Alpha"></div>
         <h3>Project Alpha</h3>
         <p>AI-powered analytics platform for real-time insights.</p>
       </div>
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Chatbot" alt="Global Chatbot"></div>
         <h3>Global Chatbot</h3>
         <p>Multilingual conversational AI for global customer engagement.</p>
       </div>
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Security" alt="Security Suite"></div>
         <h3>Security Suite</h3>
         <p>AI-driven security solutions to protect your data.</p>
       </div>
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Factory" alt="Smart Factory"></div>
         <h3>Smart Factory</h3>
         <p>Automated monitoring and optimization for manufacturing.</p>
       </div>
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Innovation" alt="Innovation Lab"></div>
         <h3>Innovation Lab</h3>
         <p>Rapid prototyping and testing of new AI concepts.</p>
       </div>
       <div class="project-card">
-        <div class="project-icon">?</div>
+        <div class="project-icon"><img loading="lazy" src="https://via.placeholder.com/120.png?text=Supply" alt="SupplySense"></div>
         <h3>SupplySense</h3>
         <p>Predictive supply chain management with AI forecasts.</p>
       </div>
@@ -458,6 +485,7 @@ footer {
   <section id="about">
     <h2>About Us</h2>
     <div class="about-content">
+      <img loading="lazy" src="https://via.placeholder.com/400x300.png?text=Our+Team" alt="Our Team" class="about-img">
       <p>At AI Agency, we believe in harnessing the power of artificial intelligence to transform businesses and society. Our team of experts is dedicated to delivering innovative, reliable, and ethical AI solutions.</p>
       <div class="skills">
         <div class="skill">
@@ -481,6 +509,7 @@ footer {
   </section>
   <section id="contact">
     <h2>Contact Us</h2>
+    <img loading="lazy" src="https://via.placeholder.com/600x200.png?text=Contact+Us" alt="Get in touch" class="contact-banner">
     <form>
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
