@@ -200,4 +200,4 @@ class PreloadLazyLoadManager {
 
 const preloadLazyLoadManager = new PreloadLazyLoadManager();
 preloadLazyLoadManager.init();
-export default preloadLazyLoadManager;
+
